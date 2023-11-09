@@ -1,0 +1,6 @@
+python
+python -m venv .venv
+pip list
+
+
+streamlit run ...
