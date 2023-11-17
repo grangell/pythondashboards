@@ -8,8 +8,6 @@ from sqlalchemy.exc import OperationalError
 def main():
     st.title("Dashboard de Vendas :shopping_trolley:")
 
-    st.sidebar.title('Filtro de Vendedores')
-
     # Verifica se a conexão já foi estabelecida na sessão
     if 'conexao' not in st.session_state:
         st.session_state.conexao = None
@@ -61,6 +59,28 @@ def main():
         df_rec_mensal = calcular_df_rec_mensal(st.session_state.df)
         df_rec_categoria = calcular_df_rec_categoria(st.session_state.df)
         df_vendedores = calcular_df_vendedores(st.session_state.df)
+        
+        st.sidebar.title('Filtro de Vendedores')
+        
+         # Lista de vendedores única do DataFrame
+        vendedores_unicos = st.session_state.df['Vendedor'].unique()
+
+        # Multiselect para seleção de vendedores
+        filtro_vendedor = st.sidebar.multiselect('Selecione os Vendedores:', vendedores_unicos)
+
+        # Aplica o filtro, se selecionado
+        if filtro_vendedor:
+            st.session_state.df_filtrado = st.session_state.df[st.session_state.df['Vendedor'].isin(filtro_vendedor)]
+
+            # Calcula a receita total apenas para o vendedor selecionado
+            receita_total_vendedor = st.session_state.df_filtrado['Preço'].sum()
+            st.success(f"Receita total para {', '.join(filtro_vendedor)}: {format_number(receita_total_vendedor, 'R$')}")
+        else:
+            st.session_state.df_filtrado = None  # Sem filtro, define como None
+
+        # Exibe o DataFrame filtrado apenas se algum filtro estiver sendo aplicado
+        if st.session_state.df_filtrado is not None:
+            st.dataframe(st.session_state.df_filtrado)
         
         # Se a senha já foi armazenada e a conexão foi estabelecida, apenas exibe o DataFrame
         aba1, aba2, aba3 = st.tabs(['Dataset', 'Receita', 'Vendedores'])
