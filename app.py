@@ -109,9 +109,13 @@ def main():
         latitude = st.sidebar.number_input("Latitude:")
         longitude = st.sidebar.number_input("Longitude:")
         
+        st.sidebar.link_button("Encontre a latitude e longitude", "https://www.mapsdirections.info/pt/coordenadas-gps.html", help=None, type="secondary", disabled=False, use_container_width=False)
+        
+        st.sidebar.markdown('     ')
+        
         campos_preenchidos = nome_produto and categoria_produto and preco_produto and frete_produto and data_produto and vend_produto and local_compra and av_prod and tipo_pagamento and quantidade_parcelas
         
-        if campos_preenchidos and st.sidebar.button("Confirmar Nova Venda"):
+        if campos_preenchidos and st.sidebar.button("Confirmar Nova Venda", help=None, type="primary", disabled=False):
         # Verifica se a conexão foi estabelecida com sucesso
             if st.session_state.conectado:
                 try:
