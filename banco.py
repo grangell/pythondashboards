@@ -26,7 +26,7 @@ class Compra(Base):
 
 # Função para criar a conexão com o banco de dados
 def criar_conexao(senha):
-        server = 'TIAPRENDIZ\\SQLEXPRESS'
+        server = 'TIAPRENDIZ\SQLEXPRESS'
         database = 'Dashboards'
         username = 'sa'
         driver = 'ODBC Driver 17 for SQL Server'

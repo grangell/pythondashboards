@@ -98,7 +98,7 @@ def main():
         vend_produto = st.sidebar.text_input("Nome do Vendedor:")
         
         ufs = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
-        local_compra = st.sidebar.selectbox("Local da Compra:", ufs)
+        local_compra = st.sidebar.selectbox("UF da Compra:", ufs)
         
         av_prod = st.sidebar.selectbox("Avaliação da Compra:", list(range(1, 11)))
         
